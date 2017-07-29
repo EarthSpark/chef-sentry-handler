@@ -52,7 +52,8 @@ class Chef::Handler::Sentry < Chef::Handler
             end
     event.server_name = node.name
     event.release = node['policy_revision'] if node['policy_revision']
-    event.timestamp = run_status.start_time
+    # ISO 8601, no timestamp
+    event.timestamp = run_status.start_time.iso8601.gsub(/Z$/, '')
     event.time_spent = run_status.elapsed_time
     event.extra = { run_id: run_status.run_id }.tap do |h|
       h[:policy_name] = node.policy_name if node.policy_name
