@@ -58,7 +58,7 @@ class Chef::Handler::Sentry < Chef::Handler
       h[:policy_name] = node.policy_name if node.policy_name
       h[:policy_group] = node.policy_group if node.policy_group
       h[:policy_revision] = node['policy_revision'] if node['policy_revision']
-    end:
+    end
     event.extra.merge!(node.run_state['sentry_extra']) if node.run_state.has_key?('sentry_extra')
     Raven.send_event(event)
   end
